@@ -28,17 +28,39 @@
         .notice-card h3 { margin: 0 0 12px 0; font-size: 14px; color: #1e40af; }
         .notice-card ul { margin: 0; padding-left: 20px; font-size: 13.5px; color: #1e3a8a; line-height: 1.6; }
 
-        .timeline { position: relative; padding-left: 8px; }
-        .timeline::before { content: ''; position: absolute; left: 63px; top: 8px; bottom: 20px; width: 2px; background: #e2e8f0; }
-        .time-item { display: flex; margin-bottom: 28px; position: relative; }
-        .time { width: 45px; font-weight: 800; color: #2563eb; font-size: 14px; margin-top: 2px; }
-        .point { width: 14px; height: 14px; background: #2563eb; border: 3px solid white; border-radius: 50%; box-shadow: 0 0 0 1px #e2e8f0; position: absolute; left: 54px; top: 4px; z-index: 10; }
-        .info { flex: 1; padding-left: 32px; }
-        .info h4 { margin: 0 0 6px 0; font-size: 16px; color: #0f172a; }
-        .info p { margin: 0; font-size: 13px; color: #64748b; background: #f8fafc; padding: 8px 12px; border-radius: 8px; border: 1px solid #f1f5f9; display: inline-block; }
+        /* 타임라인 (스크린샷 원본 스타일 복구) */
+        .timeline { position: relative; padding-left: 0; margin-top: 10px; }
+        .timeline::before { content: ''; position: absolute; left: 11px; top: 8px; bottom: 10px; width: 2px; background: #e2e8f0; }
+        
+        .time-item { position: relative; margin-bottom: 32px; padding-left: 36px; }
+        
+        .point { 
+            position: absolute; 
+            left: 4px; 
+            top: 2px; 
+            width: 10px; 
+            height: 10px; 
+            background: white; 
+            border: 4px solid #3b82f6; 
+            border-radius: 50%; 
+            z-index: 10; 
+        }
+        
+        .time { font-weight: 800; color: #3b82f6; font-size: 15px; margin-bottom: 6px; }
+        .info h4 { margin: 0 0 10px 0; font-size: 16px; color: #0f172a; }
+        .info p { 
+            margin: 0; 
+            font-size: 13.5px; 
+            color: #475569; 
+            background: #f8fafc; 
+            padding: 12px 14px; 
+            border-radius: 8px; 
+            border: 1px solid #f1f5f9; 
+            display: block; 
+        }
 
         /* 설문조사 및 통계 요약 디자인 */
-        .survey-card { background: #fff7ed; border: 1px solid #fed7aa; border-radius: 12px; padding: 16px; margin-bottom: 24px; }
+        .survey-card { background: #fff7ed; border: 1px solid #fed7aa; border-radius: 12px; padding: 16px; margin-bottom: 32px; }
         .survey-card.special { background: #f0fdf4; border: 1px solid #bbf7d0; }
         .survey-card h3 { margin: 0 0 12px 0; font-size: 14px; color: #9a3412; }
         .survey-card.special h3 { color: #166534; }
@@ -81,34 +103,27 @@
         <div id="day1" class="day-section active">
             <div class="notice-card"><h3>📢 주요 안내사항</h3><ul><li>공항 집합: 오전 7시 정각까지 김해공항 미팅</li><li>식사: 점심은 기내식, 저녁은 현지 식당 이동</li></ul></div>
             <div class="timeline">
-                <div class="time-item"><div class="time">07:00</div><div class="point"></div><div class="info"><h4>김해국제공항 집결</h4></div></div>
-                <div class="time-item"><div class="time">12:00</div><div class="point"></div><div class="info"><h4>항저우행 비행기 출발</h4></div></div>
-                <div class="time-item"><div class="time">15:00</div><div class="point"></div><div class="info"><h4>항저우 공항 도착</h4></div></div>
-                <div class="time-item"><div class="time">17:00</div><div class="point"></div><div class="info"><h4>호텔 체크인</h4></div></div>
+                <div class="time-item"><div class="point"></div><div class="time">07:00</div><div class="info"><h4>김해국제공항 집결</h4><p>📍 부산 강서구 공항진입로 108</p></div></div>
+                <div class="time-item"><div class="point"></div><div class="time">12:00</div><div class="info"><h4>항저우행 비행기 출발</h4><p>✈️ 비행기 내 (약 2시간 30분 소요)</p></div></div>
+                <div class="time-item"><div class="point"></div><div class="time">15:00</div><div class="info"><h4>항저우 공항 도착</h4><p>🛬 항저우 샤오산 국제공항 입국 수속</p></div></div>
+                <div class="time-item"><div class="point"></div><div class="time">17:00</div><div class="info"><h4>호텔 체크인</h4><p>🏨 인터컨티넨탈 항저우</p></div></div>
+                <div class="time-item"><div class="point"></div><div class="time">18:00</div><div class="info"><h4>저녁 식사 및 휴식</h4><p>🍽️ 호텔 인근 현지 식당</p></div></div>
             </div>
         </div>
 
         <!-- 2일차 -->
         <div id="day2" class="day-section">
-            <div class="notice-card"><h3>📢 안내사항</h3><ul><li>복장: 비즈니스 캐주얼 또는 정장</li></ul></div>
+            <div class="notice-card"><h3>📢 안내사항</h3><ul><li>복장: 비즈니스 캐주얼 또는 정장 착용</li></ul></div>
             
             <div class="survey-card">
                 <h3>☕ 2일차 수요 조사 (커피/식사)</h3>
                 <div class="survey-input-group">
                     <input type="text" id="name_2" placeholder="이름" style="width: 50px;">
                     <select id="coffee_2">
-                        <option value="">커피 미선택</option>
-                        <option value="아메리카노">아메리카노</option>
-                        <option value="라떼">라떼</option>
-                        <option value="밀크티">밀크티</option>
-                        <option value="차">차</option>
+                        <option value="">커피 미선택</option><option value="아메리카노">아메리카노</option><option value="라떼">라떼</option><option value="밀크티">밀크티</option><option value="차">차</option>
                     </select>
                     <select id="meal_2">
-                        <option value="">식사 미선택</option>
-                        <option value="임시 메뉴 A">임시 메뉴 A</option>
-                        <option value="임시 메뉴 B">임시 메뉴 B</option>
-                        <option value="임시 메뉴 C">임시 메뉴 C</option>
-                        <option value="안 먹음">안 먹음</option>
+                        <option value="">식사 미선택</option><option value="임시 메뉴 A">임시 메뉴 A</option><option value="임시 메뉴 B">임시 메뉴 B</option><option value="임시 메뉴 C">임시 메뉴 C</option><option value="안 먹음">안 먹음</option>
                     </select>
                     <button onclick="submitSurvey(2)">제출</button>
                 </div>
@@ -116,13 +131,15 @@
             </div>
 
             <div class="timeline">
-                <div class="time-item"><div class="time">12:00</div><div class="point"></div><div class="info"><h4>컨벤션 1일차</h4></div></div>
+                <div class="time-item"><div class="point"></div><div class="time">09:00</div><div class="info"><h4>호텔 조식</h4><p>☕ 인터컨티넨탈 뷔페 식당</p></div></div>
+                <div class="time-item"><div class="point"></div><div class="time">11:00</div><div class="info"><h4>호텔 로비 집결</h4><p>🏨 인원 점검 및 이동</p></div></div>
+                <div class="time-item"><div class="point"></div><div class="time">12:00</div><div class="info"><h4>컨벤션 1일차 참가</h4><p>💼 항저우 컨벤션 센터 (18:00 종료)</p></div></div>
             </div>
         </div>
 
         <!-- 3일차 -->
         <div id="day3" class="day-section">
-            <div class="notice-card"><h3>📢 안내사항</h3><ul><li>2일차와 동일 동선 진행</li></ul></div>
+            <div class="notice-card"><h3>📢 안내사항</h3><ul><li>일정 동일: 2일차와 동일한 동선으로 진행</li></ul></div>
             
             <div class="survey-card">
                 <h3>☕ 3일차 수요 조사 (커피/식사)</h3>
@@ -138,12 +155,17 @@
                 </div>
                 <div id="list_3" class="result-summary">데이터를 불러오는 중입니다...</div>
             </div>
-            <div class="timeline"><div class="time-item"><div class="time">12:00</div><div class="point"></div><div class="info"><h4>컨벤션 2일차</h4></div></div></div>
+
+            <div class="timeline">
+                <div class="time-item"><div class="point"></div><div class="time">09:00</div><div class="info"><h4>호텔 조식</h4><p>☕ 인터컨티넨탈 뷔페 식당</p></div></div>
+                <div class="time-item"><div class="point"></div><div class="time">11:00</div><div class="info"><h4>호텔 로비 집결</h4><p>🏨 인원 점검 및 이동</p></div></div>
+                <div class="time-item"><div class="point"></div><div class="time">12:00</div><div class="info"><h4>컨벤션 2일차 참가</h4><p>💼 항저우 컨벤션 센터 (18:00 종료)</p></div></div>
+            </div>
         </div>
 
         <!-- 4일차 -->
         <div id="day4" class="day-section">
-            <div class="notice-card"><h3>📢 안내사항</h3><ul><li>11시 체크아웃 후 컨벤션 종료 시 시내 이동</li></ul></div>
+            <div class="notice-card"><h3>📢 안내사항</h3><ul><li>체크아웃: 오전 11시 전 짐 챙겨 프론트 집결</li></ul></div>
             
             <div class="survey-card">
                 <h3>☕ 4일차 수요 조사 (커피/식사)</h3>
@@ -161,8 +183,10 @@
             </div>
             
             <div class="timeline">
-                <div class="time-item"><div class="time">12:00</div><div class="point"></div><div class="info"><h4>컨벤션 3일차 (종료)</h4></div></div>
-                <div class="time-item"><div class="time">20:00</div><div class="point"></div><div class="info"><h4>시내 호텔 이동</h4></div></div>
+                <div class="time-item"><div class="point"></div><div class="time">09:00</div><div class="info"><h4>호텔 조식</h4><p>☕ 인터컨티넨탈 뷔페 식당</p></div></div>
+                <div class="time-item"><div class="point"></div><div class="time">11:00</div><div class="info"><h4>체크아웃 및 짐 보관</h4><p>🏨 인터컨티넨탈 프론트</p></div></div>
+                <div class="time-item"><div class="point"></div><div class="time">12:00</div><div class="info"><h4>컨벤션 3일차 (종료)</h4><p>💼 항저우 컨벤션 센터</p></div></div>
+                <div class="time-item"><div class="point"></div><div class="time">20:00</div><div class="info"><h4>시내 호텔 이동/체크인</h4><p>🏨 켐핀스키 호텔 항저우</p></div></div>
             </div>
         </div>
 
@@ -183,16 +207,22 @@
                 </div>
                 <div id="list_5" class="result-summary">데이터를 불러오는 중입니다...</div>
             </div>
-            <div class="timeline"><div class="time-item"><div class="time">10:00</div><div class="point"></div><div class="info"><h4>전일 자유 일정</h4></div></div></div>
+
+            <div class="timeline">
+                <div class="time-item"><div class="point"></div><div class="time">09:00</div><div class="info"><h4>호텔 조식</h4><p>☕ 켐핀스키 호텔 식당</p></div></div>
+                <div class="time-item"><div class="point"></div><div class="time">10:00</div><div class="info"><h4>전일 자유 일정</h4><p>🌆 항저우 시내 일대</p></div></div>
+            </div>
         </div>
 
         <!-- 6일차 -->
         <div id="day6" class="day-section">
             <div class="notice-card"><h3>📢 안내사항</h3><ul><li>12시 공항 이동 전 짐 정리 완료</li></ul></div>
             <div class="timeline">
-                <div class="time-item"><div class="time">11:00</div><div class="point"></div><div class="info"><h4>체크아웃</h4></div></div>
-                <div class="time-item"><div class="time">12:00</div><div class="point"></div><div class="info"><h4>공항으로 이동</h4></div></div>
-                <div class="time-item"><div class="time">15:00</div><div class="point"></div><div class="info"><h4>귀국행 비행기 탑승</h4></div></div>
+                <div class="time-item"><div class="point"></div><div class="time">09:00</div><div class="info"><h4>호텔 조식</h4><p>☕ 켐핀스키 호텔 식당</p></div></div>
+                <div class="time-item"><div class="point"></div><div class="time">11:00</div><div class="info"><h4>체크아웃</h4><p>🏨 켐핀스키 프론트 대기</p></div></div>
+                <div class="time-item"><div class="point"></div><div class="time">12:00</div><div class="info"><h4>공항으로 이동</h4><p>🚗 전용 차량 또는 택시</p></div></div>
+                <div class="time-item"><div class="point"></div><div class="time">15:00</div><div class="info"><h4>귀국행 비행기 탑승</h4><p>✈️ 항저우 샤오산 국제공항</p></div></div>
+                <div class="time-item"><div class="point"></div><div class="time">18:00</div><div class="info"><h4>한국 도착 및 해산</h4><p>🛬 김해국제공항</p></div></div>
             </div>
         </div>
     </div>
@@ -272,7 +302,6 @@
             } else if(day === 5) {
                 document.getElementById(`banquet_5`).value = "";
             }
-            // ✨ 제출 완료 알림 추가 ✨
             alert("✅ 제출이 완료되었습니다!");
         } catch (e) {
             console.error(e);
@@ -291,13 +320,11 @@
                 return;
             }
 
-            // 통계용 변수
             let coffeeCounts = {};
             let mealCounts = {};
             let banquetCounts = {};
             let submitters = [];
 
-            // 데이터 하나씩 꺼내서 종류별로 갯수 세기
             snapshot.forEach((doc) => {
                 const data = doc.data();
                 submitters.push(data.name);
@@ -310,12 +337,10 @@
                 }
             });
 
-            // 계산된 결과를 '메뉴명 N개' 형식의 글자로 만들기
             const coffeeText = Object.entries(coffeeCounts).map(([k, v]) => `${k} ${v}개`).join(", ") || "선택 없음";
             const mealText = Object.entries(mealCounts).map(([k, v]) => `${k} ${v}개`).join(", ") || "선택 없음";
             const banquetText = Object.entries(banquetCounts).map(([k, v]) => `${k} ${v}명`).join(", ") || "선택 없음";
             
-            // 화면에 보여주기
             let html = `<div><strong>📊 실시간 집계 현황 (총 ${submitters.length}명)</strong></div>`;
             if(day >= 2 && day <= 4) {
                 html += `<div>☕ 커피 : ${coffeeText}</div>`;
