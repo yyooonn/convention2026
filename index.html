@@ -7,21 +7,19 @@
     <style>
         /* 앱 기본 디자인 */
         body { margin: 0; background-color: #f1f5f9; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; display: flex; justify-content: center; }
-        .app-container { width: 100%; max-width: 480px; background-color: white; min-height: 100vh; box-shadow: 0 0 20px rgba(0,0,0,0.1); position: relative; overflow: hidden; }
+        .app-container { width: 100%; max-width: 480px; background-color: white; min-height: 100vh; box-shadow: 0 0 20px rgba(0,0,0,0.1); position: relative; overflow: hidden; display: flex; flex-direction: column; }
+        
         .header { padding: 24px 20px 16px; border-bottom: 1px solid #f1f5f9; }
         .header h1 { margin: 4px 0; font-size: 24px; color: #0f172a; }
         .header p { margin: 0; font-size: 14px; color: #64748b; }
         .badge { color: #2563eb; font-weight: bold; font-size: 13px; }
-
-        .map-container { width: 100%; height: 280px; background: #e2e8f0; position: relative; overflow: hidden; }
-        .map-container iframe { position: absolute; top: -60px; left: 0; width: 100%; height: calc(100% + 60px); border: none; }
 
         .tabs-wrapper { position: sticky; top: 0; background: rgba(255,255,255,0.95); backdrop-filter: blur(4px); z-index: 50; border-bottom: 1px solid #e2e8f0; padding: 12px 16px; overflow-x: auto; white-space: nowrap; -ms-overflow-style: none; scrollbar-width: none; }
         .tabs-wrapper::-webkit-scrollbar { display: none; }
         .tab-btn { display: inline-block; padding: 8px 20px; margin-right: 8px; border-radius: 20px; background: #f1f5f9; color: #64748b; font-weight: bold; font-size: 14px; cursor: pointer; border: none; transition: 0.2s; }
         .tab-btn.active { background: #2563eb; color: white; }
 
-        .content-area { padding: 24px 20px 60px; }
+        .content-area { padding: 24px 20px 40px; flex: 1; }
         .day-section { display: none; animation: fadeIn 0.3s; }
         .day-section.active { display: block; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
@@ -39,21 +37,25 @@
         .info h4 { margin: 0 0 6px 0; font-size: 16px; color: #0f172a; }
         .info p { margin: 0; font-size: 13px; color: #64748b; background: #f8fafc; padding: 8px 12px; border-radius: 8px; border: 1px solid #f1f5f9; display: inline-block; }
 
-        /* 설문조사 카드 디자인 */
+        /* 설문조사 및 통계 요약 디자인 */
         .survey-card { background: #fff7ed; border: 1px solid #fed7aa; border-radius: 12px; padding: 16px; margin-bottom: 24px; }
         .survey-card.special { background: #f0fdf4; border: 1px solid #bbf7d0; }
         .survey-card h3 { margin: 0 0 12px 0; font-size: 14px; color: #9a3412; }
         .survey-card.special h3 { color: #166534; }
-        .survey-input-group { display: flex; gap: 6px; margin-bottom: 12px; flex-wrap: wrap; }
+        .survey-input-group { display: flex; gap: 6px; margin-bottom: 16px; flex-wrap: wrap; }
         .survey-input-group input, .survey-input-group select { padding: 8px; border: 1px solid #fdba74; border-radius: 6px; font-size: 13px; outline: none; }
         .survey-card.special input, .survey-card.special select { border-color: #86efac; }
         .survey-input-group button { background: #ea580c; color: white; border: none; border-radius: 6px; padding: 8px 16px; font-weight: bold; cursor: pointer; }
         .survey-card.special button { background: #16a34a; }
         
-        .result-list { margin: 0; padding: 0; list-style: none; font-size: 13px; color: #7c2d12; max-height: 150px; overflow-y: auto; }
-        .survey-card.special .result-list { color: #14532d; }
-        .result-item { display: flex; justify-content: space-between; padding: 6px 0; border-bottom: 1px dashed #fdba74; }
-        .survey-card.special .result-item { border-bottom-color: #86efac; }
+        .result-summary { background: white; padding: 12px; border-radius: 8px; font-size: 13.5px; line-height: 1.6; color: #431407; border: 1px dashed #fdba74; }
+        .survey-card.special .result-summary { color: #14532d; border-color: #86efac; }
+        .submitters-list { margin-top: 8px; font-size: 12px; color: #9a3412; padding-top: 8px; border-top: 1px solid #ffedd5; }
+        .survey-card.special .submitters-list { color: #166534; border-top-color: #dcfce7; }
+
+        /* 하단 지도 영역 */
+        .map-container { width: 100%; height: 250px; background: #e2e8f0; position: relative; overflow: hidden; border-top: 2px solid #f1f5f9; mt-auto; }
+        .map-container iframe { position: absolute; top: -60px; left: 0; width: 100%; height: calc(100% + 60px); border: none; }
     </style>
 </head>
 <body>
@@ -63,10 +65,6 @@
         <span class="badge">📅 5박 6일 출장 일정</span>
         <h1>2026 항저우 컨벤션</h1>
         <p>인터컨티넨탈 (1~3박) & 켐핀스키 (4~5박)</p>
-    </div>
-
-    <div class="map-container">
-        <iframe id="map-iframe" src="https://www.google.com/maps/d/embed?mid=1ij80b_s11aQNX7L4Rv4crIFwGzmRBYk&ehbc=2E312F" allowfullscreen></iframe>
     </div>
 
     <div class="tabs-wrapper">
@@ -79,16 +77,9 @@
     </div>
 
     <div class="content-area">
-        
         <!-- 1일차 -->
         <div id="day1" class="day-section active">
-            <div class="notice-card">
-                <h3>📢 주요 안내사항</h3>
-                <ul>
-                    <li><b>공항 집합:</b> 오전 7시 정각까지 김해공항 미팅</li>
-                    <li><b>식사:</b> 점심은 기내식, 저녁은 현지 식당 이동</li>
-                </ul>
-            </div>
+            <div class="notice-card"><h3>📢 주요 안내사항</h3><ul><li>공항 집합: 오전 7시 정각까지 김해공항 미팅</li><li>식사: 점심은 기내식, 저녁은 현지 식당 이동</li></ul></div>
             <div class="timeline">
                 <div class="time-item"><div class="time">07:00</div><div class="point"></div><div class="info"><h4>김해국제공항 집결</h4></div></div>
                 <div class="time-item"><div class="time">12:00</div><div class="point"></div><div class="info"><h4>항저우행 비행기 출발</h4></div></div>
@@ -101,7 +92,6 @@
         <div id="day2" class="day-section">
             <div class="notice-card"><h3>📢 안내사항</h3><ul><li>복장: 비즈니스 캐주얼 또는 정장</li></ul></div>
             
-            <!-- 2일차 설문조사 -->
             <div class="survey-card">
                 <h3>☕ 2일차 수요 조사 (커피/식사)</h3>
                 <div class="survey-input-group">
@@ -122,7 +112,7 @@
                     </select>
                     <button onclick="submitSurvey(2)">제출</button>
                 </div>
-                <ul class="result-list" id="list_2"><li>데이터 로딩중...</li></ul>
+                <div id="list_2" class="result-summary">데이터를 불러오는 중입니다...</div>
             </div>
 
             <div class="timeline">
@@ -134,61 +124,40 @@
         <div id="day3" class="day-section">
             <div class="notice-card"><h3>📢 안내사항</h3><ul><li>2일차와 동일 동선 진행</li></ul></div>
             
-            <!-- 3일차 설문조사 -->
             <div class="survey-card">
                 <h3>☕ 3일차 수요 조사 (커피/식사)</h3>
                 <div class="survey-input-group">
                     <input type="text" id="name_3" placeholder="이름" style="width: 50px;">
                     <select id="coffee_3">
-                        <option value="">커피 미선택</option>
-                        <option value="아메리카노">아메리카노</option>
-                        <option value="라떼">라떼</option>
-                        <option value="밀크티">밀크티</option>
-                        <option value="차">차</option>
+                        <option value="">커피 미선택</option><option value="아메리카노">아메리카노</option><option value="라떼">라떼</option><option value="밀크티">밀크티</option><option value="차">차</option>
                     </select>
                     <select id="meal_3">
-                        <option value="">식사 미선택</option>
-                        <option value="임시 메뉴 A">임시 메뉴 A</option>
-                        <option value="임시 메뉴 B">임시 메뉴 B</option>
-                        <option value="임시 메뉴 C">임시 메뉴 C</option>
-                        <option value="안 먹음">안 먹음</option>
+                        <option value="">식사 미선택</option><option value="임시 메뉴 A">임시 메뉴 A</option><option value="임시 메뉴 B">임시 메뉴 B</option><option value="임시 메뉴 C">임시 메뉴 C</option><option value="안 먹음">안 먹음</option>
                     </select>
                     <button onclick="submitSurvey(3)">제출</button>
                 </div>
-                <ul class="result-list" id="list_3"><li>데이터 로딩중...</li></ul>
+                <div id="list_3" class="result-summary">데이터를 불러오는 중입니다...</div>
             </div>
-            
-            <div class="timeline">
-                <div class="time-item"><div class="time">12:00</div><div class="point"></div><div class="info"><h4>컨벤션 2일차</h4></div></div>
-            </div>
+            <div class="timeline"><div class="time-item"><div class="time">12:00</div><div class="point"></div><div class="info"><h4>컨벤션 2일차</h4></div></div></div>
         </div>
 
         <!-- 4일차 -->
         <div id="day4" class="day-section">
             <div class="notice-card"><h3>📢 안내사항</h3><ul><li>11시 체크아웃 후 컨벤션 종료 시 시내 이동</li></ul></div>
             
-            <!-- 4일차 설문조사 -->
             <div class="survey-card">
                 <h3>☕ 4일차 수요 조사 (커피/식사)</h3>
                 <div class="survey-input-group">
                     <input type="text" id="name_4" placeholder="이름" style="width: 50px;">
                     <select id="coffee_4">
-                        <option value="">커피 미선택</option>
-                        <option value="아메리카노">아메리카노</option>
-                        <option value="라떼">라떼</option>
-                        <option value="밀크티">밀크티</option>
-                        <option value="차">차</option>
+                        <option value="">커피 미선택</option><option value="아메리카노">아메리카노</option><option value="라떼">라떼</option><option value="밀크티">밀크티</option><option value="차">차</option>
                     </select>
                     <select id="meal_4">
-                        <option value="">식사 미선택</option>
-                        <option value="임시 메뉴 A">임시 메뉴 A</option>
-                        <option value="임시 메뉴 B">임시 메뉴 B</option>
-                        <option value="임시 메뉴 C">임시 메뉴 C</option>
-                        <option value="안 먹음">안 먹음</option>
+                        <option value="">식사 미선택</option><option value="임시 메뉴 A">임시 메뉴 A</option><option value="임시 메뉴 B">임시 메뉴 B</option><option value="임시 메뉴 C">임시 메뉴 C</option><option value="안 먹음">안 먹음</option>
                     </select>
                     <button onclick="submitSurvey(4)">제출</button>
                 </div>
-                <ul class="result-list" id="list_4"><li>데이터 로딩중...</li></ul>
+                <div id="list_4" class="result-summary">데이터를 불러오는 중입니다...</div>
             </div>
             
             <div class="timeline">
@@ -201,7 +170,6 @@
         <div id="day5" class="day-section">
             <div class="notice-card"><h3>📢 안내사항</h3><ul><li>전일 자유 일정 (서호, 청하방 옛거리 추천)</li></ul></div>
             
-            <!-- 5일차 특별 설문조사 (만찬 참석) -->
             <div class="survey-card special">
                 <h3>🍷 5일차 저녁 만찬 참석 여부</h3>
                 <div class="survey-input-group">
@@ -213,12 +181,9 @@
                     </select>
                     <button onclick="submitSurvey(5)">제출</button>
                 </div>
-                <ul class="result-list" id="list_5"><li>데이터 로딩중...</li></ul>
+                <div id="list_5" class="result-summary">데이터를 불러오는 중입니다...</div>
             </div>
-            
-            <div class="timeline">
-                <div class="time-item"><div class="time">10:00</div><div class="point"></div><div class="info"><h4>전일 자유 일정</h4></div></div>
-            </div>
+            <div class="timeline"><div class="time-item"><div class="time">10:00</div><div class="point"></div><div class="info"><h4>전일 자유 일정</h4></div></div></div>
         </div>
 
         <!-- 6일차 -->
@@ -230,7 +195,11 @@
                 <div class="time-item"><div class="time">15:00</div><div class="point"></div><div class="info"><h4>귀국행 비행기 탑승</h4></div></div>
             </div>
         </div>
+    </div>
 
+    <!-- 하단으로 이동한 지도 영역 -->
+    <div class="map-container">
+        <iframe id="map-iframe" src="https://www.google.com/maps/d/embed?mid=1ij80b_s11aQNX7L4Rv4crIFwGzmRBYk&ehbc=2E312F" allowfullscreen></iframe>
     </div>
 </div>
 
@@ -256,7 +225,7 @@
     }
 </script>
 
-<!-- 파이어베이스 데이터베이스 스크립트 -->
+<!-- 파이어베이스 실시간 통계 합산 스크립트 -->
 <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
     import { getFirestore, collection, addDoc, onSnapshot, query, orderBy, serverTimestamp, where } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
@@ -275,30 +244,20 @@
     const db = getFirestore(app);
     const ordersCol = collection(db, "convention_orders");
 
-    // 전역 함수로 만들기 위해 window 객체에 할당
+    // 제출 함수
     window.submitSurvey = async function(day) {
         const nameInput = document.getElementById(`name_${day}`);
-        let dataToSave = { 
-            day: day, 
-            name: nameInput.value, 
-            createdAt: serverTimestamp() 
-        };
+        let dataToSave = { day: day, name: nameInput.value, createdAt: serverTimestamp() };
 
-        if(!dataToSave.name) {
-            alert("이름을 입력해주세요!");
-            return;
-        }
+        if(!dataToSave.name) { alert("이름을 입력해주세요!"); return; }
 
-        // 2~4일차 (커피, 식사)
         if(day >= 2 && day <= 4) {
             const coffee = document.getElementById(`coffee_${day}`).value;
             const meal = document.getElementById(`meal_${day}`).value;
             if(!coffee && !meal) { alert("메뉴를 하나 이상 선택해주세요!"); return; }
             dataToSave.coffee = coffee || "-";
             dataToSave.meal = meal || "-";
-        } 
-        // 5일차 (만찬)
-        else if(day === 5) {
+        } else if(day === 5) {
             const banquet = document.getElementById(`banquet_5`).value;
             if(!banquet) { alert("참석 여부를 선택해주세요!"); return; }
             dataToSave.banquet = banquet;
@@ -306,7 +265,6 @@
 
         try {
             await addDoc(ordersCol, dataToSave);
-            // 입력창 초기화
             nameInput.value = "";
             if(day >= 2 && day <= 4) {
                 document.getElementById(`coffee_${day}`).value = "";
@@ -314,34 +272,60 @@
             } else if(day === 5) {
                 document.getElementById(`banquet_5`).value = "";
             }
+            // ✨ 제출 완료 알림 추가 ✨
+            alert("✅ 제출이 완료되었습니다!");
         } catch (e) {
             console.error(e);
             alert("저장에 실패했습니다.");
         }
     };
 
-    // 각 일차별로 데이터 실시간 불러오기
+    // 실시간 데이터 자동 취합 (통계 기능)
     [2, 3, 4, 5].forEach(day => {
         const q = query(ordersCol, where("day", "==", day), orderBy("createdAt", "desc"));
         onSnapshot(q, (snapshot) => {
-            const list = document.getElementById(`list_${day}`);
-            list.innerHTML = "";
+            const listDiv = document.getElementById(`list_${day}`);
+            
             if(snapshot.empty) {
-                list.innerHTML = "<li>아직 입력된 데이터가 없습니다.</li>";
+                listDiv.innerHTML = "아직 제출된 내역이 없습니다.";
                 return;
             }
+
+            // 통계용 변수
+            let coffeeCounts = {};
+            let mealCounts = {};
+            let banquetCounts = {};
+            let submitters = [];
+
+            // 데이터 하나씩 꺼내서 종류별로 갯수 세기
             snapshot.forEach((doc) => {
                 const data = doc.data();
-                const li = document.createElement("li");
-                li.className = "result-item";
-                
+                submitters.push(data.name);
+
                 if(day >= 2 && day <= 4) {
-                    li.innerHTML = `<span><b>${data.name}</b></span> <span>☕ ${data.coffee} | 🍱 ${data.meal}</span>`;
+                    if(data.coffee && data.coffee !== "-") coffeeCounts[data.coffee] = (coffeeCounts[data.coffee] || 0) + 1;
+                    if(data.meal && data.meal !== "-") mealCounts[data.meal] = (mealCounts[data.meal] || 0) + 1;
                 } else if(day === 5) {
-                    li.innerHTML = `<span><b>${data.name}</b></span> <span>🍷 ${data.banquet}</span>`;
+                    if(data.banquet) banquetCounts[data.banquet] = (banquetCounts[data.banquet] || 0) + 1;
                 }
-                list.appendChild(li);
             });
+
+            // 계산된 결과를 '메뉴명 N개' 형식의 글자로 만들기
+            const coffeeText = Object.entries(coffeeCounts).map(([k, v]) => `${k} ${v}개`).join(", ") || "선택 없음";
+            const mealText = Object.entries(mealCounts).map(([k, v]) => `${k} ${v}개`).join(", ") || "선택 없음";
+            const banquetText = Object.entries(banquetCounts).map(([k, v]) => `${k} ${v}명`).join(", ") || "선택 없음";
+            
+            // 화면에 보여주기
+            let html = `<div><strong>📊 실시간 집계 현황 (총 ${submitters.length}명)</strong></div>`;
+            if(day >= 2 && day <= 4) {
+                html += `<div>☕ 커피 : ${coffeeText}</div>`;
+                html += `<div>🍱 식사 : ${mealText}</div>`;
+            } else if(day === 5) {
+                html += `<div>🍷 만찬 : ${banquetText}</div>`;
+            }
+            html += `<div class="submitters-list">제출자: ${submitters.join(", ")}</div>`;
+            
+            listDiv.innerHTML = html;
         });
     });
 </script>
